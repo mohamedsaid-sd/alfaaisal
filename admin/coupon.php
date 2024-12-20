@@ -89,10 +89,9 @@ include '../config.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // الحصول على عدد الكوبونات من النموذج
     $couponCount = intval($_POST['barcodeCount']);
-    $barcode_id = intval($_GET['barcode_id']);
 
     // التحقق من صحة البيانات
-    if ($couponCount > 0 && $barcode_id > 0) {
+    if ($couponCount > 0 ) {
         for ($i = 0; $i < $couponCount; $i++) {
             // توليد كود عشوائي فريد
             do {
@@ -103,8 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } while ($row['count'] > 0);
 
             // إدخال الكوبون في قاعدة البيانات
-            $insertQuery = "INSERT INTO coupons (barcode, code, status, created_at)
-                            VALUES ($barcode_id, '$randomCode', '0', NOW())";
+            $insertQuery = "INSERT INTO coupons (code,is_used,is_blocked, created_at)
+                            VALUES ('$randomCode', '0','0', NOW())";
             $conn->query($insertQuery);
         }
         echo "<script>alert('تم إنشاء $couponCount كوبون بنجاح!');</script>";
@@ -125,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="number" class="form-control" id="barcodeCount" name="barcodeCount" placeholder="أدخل العدد" min="1" required>
                 </div>
                 <div class="col-md-6">
-                    <center style="float: left;">
+                    <!-- <center style="float: left;">
                         <?php 
                         $id = intval($_GET['barcode_id']);
                         $sql_barcodes = "SELECT * FROM `barcodes` WHERE `id` = $id";
@@ -142,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h3><?php echo $store_name; ?></h3>
                         <img src="<?php echo $barcode_row['barcode'] ?>" width="100">
                         <?php } ?><br/>
-                    </center>
+                    </center> -->
                 </div>
             </div>
             <button type="submit" class="btn btn-primary mt-3">إنشاء كوبونات</button>
@@ -162,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <?php
                         // حساب العدد الكلي للكوبونات
-                        $sql_total_coupons = "SELECT COUNT(*) AS total_coupons FROM coupons WHERE `barcode` LIKE '$id' ";
+                        $sql_total_coupons = "SELECT COUNT(*) AS total_coupons FROM coupons  ";
                         $result_total = mysqli_query($conn, $sql_total_coupons);
                         $row_total = mysqli_fetch_assoc($result_total);
                         $total_coupons = $row_total['total_coupons'];
@@ -181,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p>
                         <?php
                         // حساب العدد الكلي للكوبونات
-                        $sql_total_coupons = "SELECT COUNT(*) AS total_coupons FROM coupons WHERE `barcode` LIKE '$id' AND `status` LIKE '1' ";
+                        $sql_total_coupons = "SELECT COUNT(*) AS total_coupons FROM coupons WHERE  `is_used` LIKE '1' ";
                         $result_total = mysqli_query($conn, $sql_total_coupons);
                         $row_total = mysqli_fetch_assoc($result_total);
                         $total_coupons = $row_total['total_coupons'];
@@ -196,11 +195,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <h4>الكوبونات المتبقية</h4>
+                    <h4>الكوبونات المحجوبة</h4>
                     <p>
                         <?php
                         // حساب العدد الكلي للكوبونات
-                        $sql_total_coupons = "SELECT COUNT(*) AS total_coupons FROM coupons WHERE `barcode` LIKE '$id' AND `status` LIKE '0' ";
+                        $sql_total_coupons = "SELECT COUNT(*) AS total_coupons FROM coupons WHERE `is_blocked` LIKE '1' ";
                         $result_total = mysqli_query($conn, $sql_total_coupons);
                         $row_total = mysqli_fetch_assoc($result_total);
                         $total_coupons = $row_total['total_coupons'];

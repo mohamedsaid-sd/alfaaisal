@@ -11,6 +11,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="dashboard.php">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="stores.php"> المتاجر </a></li>
+                    <li class="nav-item"><a class="nav-link" href="coupon.php"> الكوبونات </a></li>
                     <li class="nav-item"><a class="nav-link" href="storeCustomers.php"> المستخدمين </a></li>
                     <li class="nav-item"><a class="nav-link" href="win.php"> السحب </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php">تسجيل الخروج</a></li>

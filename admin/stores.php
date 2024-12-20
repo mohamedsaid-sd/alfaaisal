@@ -73,12 +73,11 @@ include '../config.php';
     // 1. إضافة متجر جديد
     if(isset($_POST['addstore'])){
         $name = $_POST['name'];
-        $owner = $_POST['owner'];
         $country = $_POST['country'];
         $region = $_POST['region'];
         $phone = $_POST['phone'];
         
-        $sql = "INSERT INTO stores (name, owner, country, region, phone,status) VALUES ('$name', '$owner', '$country', '$region', '$phone' , '1')";
+        $sql = "INSERT INTO stores (name, country, region, phone,status) VALUES ('$name', '$country', '$region', '$phone' , '1')";
         
         if ($conn->query($sql) === TRUE) {
             echo "<center><div class='alert alert-success'> تم إضافة المتجر بنجاح! </div></center>";
@@ -91,12 +90,11 @@ include '../config.php';
     if(isset($_POST['editstore'])){
         $id = $_GET['id']; // استلام المعرف
         $name = $_POST['name'];
-        $owner = $_POST['owner'];
         $country = $_POST['country'];
         $region = $_POST['region'];
         $phone = $_POST['phone'];
         
-        $sql = "UPDATE stores SET name='$name', owner='$owner', country='$country', region='$region', phone='$phone' WHERE id=$id";
+        $sql = "UPDATE stores SET name='$name', country='$country', region='$region', phone='$phone' WHERE id=$id";
         
         if ($conn->query($sql) === TRUE) {
             echo "<center><div class='alert alert-success'> تم تعديل المتجر بنجاح! </div> </center>";
@@ -104,6 +102,45 @@ include '../config.php';
             echo "<center><div class='alert alert-danger'> خطأ: " . $sql . "<br>" . $conn->error."</div> </center>";
         }
     }
+
+
+
+    
+    // 2. اسناد الكوبونات 
+    if(isset($_POST['addrangcoupon'])){
+        $id = $_GET['id']; // استلام المعرف
+        $to = $_POST['to'];
+        $from = $_POST['from'];
+  
+        
+        $sql = "UPDATE coupons SET store_id='$id' WHERE id between $from and $to ";
+        
+        if ($conn->query($sql) === TRUE) {
+            echo "<center><div class='alert alert-success'> تم تعديل  بنجاح! </div> </center>";
+        } else {
+            echo "<center><div class='alert alert-danger'> خطأ: " . $sql . "<br>" . $conn->error."</div> </center>";
+        }
+    }
+
+
+     
+    // 2. حجب الكوبونات 
+    if(isset($_POST['addblockcoupon'])){
+        $id = $_GET['id']; // استلام المعرف
+        $to = $_POST['to'];
+        $from = $_POST['from'];
+  
+        
+        $sql = "UPDATE coupons SET is_blocked='1' WHERE id between $from and $to ";
+        
+        if ($conn->query($sql) === TRUE) {
+            echo "<center><div class='alert alert-success'> تم الحجب  بنجاح! </div> </center>";
+        } else {
+            echo "<center><div class='alert alert-danger'> خطأ: " . $sql . "<br>" . $conn->error."</div> </center>";
+        }
+    }
+
+
 
     // 3. حذف متجر
     if(isset($_GET['delete'])){
@@ -138,10 +175,7 @@ include '../config.php';
                                     <label for="storeName" class="form-label">اسم المتجر</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="أدخل اسم المتجر" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="storeOwner" class="form-label">اسم المالك</label>
-                                    <input type="text" class="form-control" id="owner" name="owner" placeholder="أدخل اسم المالك" required>
-                                </div>
+                           
                                 <div class="col-md-6">
                                     <label for="storeLocation" class="form-label">الدولة</label>
                                     <input type="text" class="form-control" id="country" name="country" placeholder="أدخل موقع المتجر" required>
@@ -166,6 +200,83 @@ include '../config.php';
             </div>
         </div>
 
+
+
+         <!-- Modal Rang coupon  -->
+         <div class="modal fade" id="rangcouponModal" tabindex="-1" aria-labelledby="rangcouponModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rangcouponModal">تحديد الكوبونات  </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="stores.php" id="addrangcoupon">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="storeName" class="form-label"> من</label>
+                                    <input type="number" class="form-control" id="from" name="from" placeholder=" من " required>
+                                </div>
+                           
+                                <div class="col-md-6">
+                                    <label for="storeLocation" class="form-label">الي</label>
+                                    <input type="number" class="form-control" id="to" name="to" placeholder=" الي " required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="storeLocation" class="form-label">المتجر</label>
+                                    <input type="text" class="form-control" id="idstore" name="idstore" placeholder=" الي " required>
+                                </div>
+                               
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                                <button type="submit" name="addrangcoupon" class="btn btn-primary">تاكيد </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+         <!-- Modal block coupon  -->
+         <div class="modal fade" id="blockcouponModal" tabindex="-1" aria-labelledby="blockcouponModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="blockcouponModal">حجب الكوبونات  </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="stores.php" id="addblockcoupon">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="storeName" class="form-label"> من</label>
+                                    <input type="number" class="form-control" id="from" name="from" placeholder=" من " required>
+                                </div>
+                           
+                                <div class="col-md-6">
+                                    <label for="storeLocation" class="form-label">الي</label>
+                                    <input type="number" class="form-control" id="to" name="to" placeholder=" الي " required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="storeLocation" class="form-label">المتجر</label>
+                                    <input type="text" class="form-control" id="idstore2" name="idstore2" placeholder="الي  " required>
+                                </div>
+                               
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                                <button type="submit" name="addblockcoupon" class="btn btn-primary">تاكيد </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- DataTable Section -->
         <div class="table-responsive">
             <table id="storesTable" class="table table-bordered table-striped">
@@ -176,8 +287,9 @@ include '../config.php';
                         <th style="text-align: right;"> الدولة </th>
                         <th style="text-align: right;"> المنطقة </th>
                         <th style="text-align: right;">رقم الهاتف</th>
-                        <th style="text-align: right;">اسم المالك</th>
-                        <th style="text-align: right;"> الباركودات </th>
+                        <th style="text-align: right;"> الكوبونات </th>
+                        <th style="text-align: right;">  الكوبونات المحجوبة </th>
+
                         <th style="text-align: right;">الإجراءات</th>
                     </tr>
                 </thead>
@@ -189,11 +301,16 @@ include '../config.php';
                     while($row = $result->fetch_assoc()) {
 
                         $store_id = $row['id'];
-                        $sql_barcodes = "SELECT * FROM `barcodes` WHERE `store_id` = '$store_id'";
+                        $sql_barcodes = "SELECT * FROM `coupons` WHERE `store_id` = '$store_id'";
                         $result_barcodes = mysqli_query($conn, $sql_barcodes);
+
+                        $sql_blockcoupon = "SELECT * FROM `coupons` WHERE `store_id` = '$store_id' and `is_blocked` = '1' ";
+                        $result_blockcoupon = mysqli_query($conn, $sql_blockcoupon);
 
                         // الحصول على عدد الباركودات
                         $barcode_count = mysqli_num_rows($result_barcodes);
+                        $blockcoupon_count = mysqli_num_rows($result_blockcoupon);
+
 
 
                         echo "<tr>
@@ -202,10 +319,14 @@ include '../config.php';
                                 <td>" . $row['country'] . "</td>
                                 <td>" . $row['region'] . "</td>
                                 <td>" . $row['phone'] . "</td>
-                                <td>" . $row['owner'] . "</td>
                                 <td> ". $barcode_count ." </td>
+                                <td> ". $blockcoupon_count ." </td>
+
                                 <td class='action-buttons'>
-                                    <button class='btn btn-sm btn-warning' onclick='editStore(" . $row['id'] . ", \"" . $row['name'] . "\", \"" . $row['owner'] . "\", \"" . $row['country'] . "\", \"" . $row['region'] . "\", \"" . $row['phone'] . "\")'>تعديل</button>
+                                    <button class='btn btn-sm btn-warning' onclick='editStore(" . $row['id'] . ", \"" . $row['name'] . "\", \"" . $row['name'] . "\", \"" . $row['country'] . "\", \"" . $row['region'] . "\", \"" . $row['phone'] . "\")'>تعديل</button>
+                                 <button class='btn btn-sm btn-warning' onclick='rangcoupon(" . $row['id'] . ", \"" . $row['name'] . "\", \"" . $row['name'] . "\", \"" . $row['country'] . "\", \"" . $row['region'] . "\", \"" . $row['phone'] . "\")'>كوبون</button>
+                                 <button class='btn btn-sm btn-warning' onclick='blockcoupon(" . $row['id'] . ", \"" . $row['name'] . "\", \"" . $row['name'] . "\", \"" . $row['country'] . "\", \"" . $row['region'] . "\", \"" . $row['phone'] . "\")'>حجب</button>
+
                                     <button class='btn btn-sm btn-danger' onclick='confirmDelete(" . $row['id'] . ")'>حذف</button>
                                     <a href='barcode.php?id=".$row['id']."'> <button class='btn btn-success'> إدارة </button? </a>
                                 </td>
@@ -233,7 +354,6 @@ include '../config.php';
         // Edit Store Function
         function editStore(id, name, owner, country, region, phone) {
             $('#name').val(name);
-            $('#owner').val(owner);
             $('#country').val(country);
             $('#region').val(region);
             $('#phone').val(phone);
@@ -242,6 +362,23 @@ include '../config.php';
             $('button[type="submit"][name="editstore"]').show();
             $('#addStoreForm').attr('action', 'stores.php?id=' + id); // Pass store id for editing
             $('#addStoreModal').modal('show');
+        }
+
+        function rangcoupon(id, name, owner, country, region, phone) {
+            $('#idstore').val(id);
+
+            
+            $('#addrangcoupon').attr('action', 'stores.php?id=' + id); // Pass store id for editing
+            $('#rangcouponModal').modal('show');
+        }
+
+
+        function blockcoupon(id, name, owner, country, region, phone) {
+            $('#idstore2').val(id);
+
+            
+            $('#addblockcoupon').attr('action', 'stores.php?id=' + id); // Pass store id for editing
+            $('#blockcouponModal').modal('show');
         }
 
         // Confirm Deletion

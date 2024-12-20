@@ -25,34 +25,10 @@ div{
 
 <?php 
 include '../config.php';
-$barcode_id = $_GET['id'];
 
-$barcode_query = "SELECT * FROM `barcodes` WHERE `id` = $barcode_id";
-$barcode_result = mysqli_query($conn,$barcode_query);
-while ($barcode_row = mysqli_fetch_array($barcode_result)) {
-	$barcode_image = $barcode_row['barcode'];
-?>
-<img style="float: left;" src="../images/logo.jpg" width="100">
-<img style="float: right;" src="<?php echo $barcode_image ?>" width="100"/>
-<div>
-<h3> شركة الفيصل للاستثمار </h3>
-<h3> استمارة كوبونات - <?php echo date("d/m/Y H:i"); ?>   </h3>
 
-</div>
-<br/>
-<!-- <table width="100%" border="1">
-	<thead>
-	<tr>
-		<th> # </th>
-		<th> الرمز </th>
-		<th> الرمز </th>
-		<th> الرمز </th>
-	</tr>
-	</thead>
-	<tbody> -->
-<?php
-}
-$coupons_sql = "SELECT * FROM `coupons` WHERE `barcode` LIKE '$barcode_id' AND `status` LIKE '0'";
+
+$coupons_sql = "SELECT * FROM `coupons` ";
 $coupons_result = mysqli_query($conn,$coupons_sql);
 $i = 1;
 $count = 0;
