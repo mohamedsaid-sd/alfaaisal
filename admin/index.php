@@ -12,8 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($username === $correct_username && $password === $correct_password) {
         // تسجيل دخول ناجح - إعادة توجيه المستخدم إلى صفحة dashboard
-        header("Location: dashboard.php");
-        exit();
+        //header("Location: dashboard.php");
+        echo "<div class='alert alert-success'> تم الدخول جاري توجيهك ... </div>";
+        echo "<meta http-equiv='refresh' content='3;url=dashboard.php'>";
+        //exit();
     } else {
         // رسالة خطأ
         $error_message = "اسم المستخدم أو كلمة المرور غير صحيحة.";
