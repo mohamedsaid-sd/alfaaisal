@@ -1,0 +1,366 @@
+/* إعدادات الخطوط الأساسية */
+body {
+    font-family: 'Tajawal', sans-serif; /* الخط الأول */
+    line-height: 1.6;
+    font-family: 'Cairo', sans-serif; /* الخط الثاني */
+}
+
+/* تخصيص مظهر الهيدر */
+header {
+    background: linear-gradient(90deg, #007bff, #00c6ff); /* تدرج لوني للأزرق */
+    color: white; /* نص أبيض */
+}
+
+/* تخصيص خطوط العناوين */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', sans-serif; /* خط العناوين */
+    font-weight: 700; /* وزن الخط */
+}
+
+#hero {
+    color: white; 
+    position: relative;
+}
+
+#hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* الطبقة السوداء الشفافة */
+    z-index: 0; /* تحت النص */
+}
+
+#hero .container {
+    position: relative;
+    z-index: 1; /* فوق الطبقة الشفافة */
+}
+
+.logo-img {
+    width: 50px; /* عرض الشعار */
+    height: 50px; /* ارتفاع الشعار */
+    border-radius: 50%; /* جعل الشعار دائريًا */
+}
+
+/* تخصيص مظهر شريط التنقل */
+.navbar {
+    background: transparent; /* خلفية شفافة */
+}
+
+.navbar-brand h1 {
+    font-weight: 700; /* وزن الخط */
+}
+
+/* تخصيص الروابط في شريط التنقل */
+.nav-link {
+    color: white; /* لون النص */
+    font-weight: 700; /* وزن الخط */
+}
+
+.nav-link:hover {
+    color: gold; /* لون جذاب عند التمرير */
+}
+
+/* تخصيص العناصر القابلة للطي في شريط التنقل */
+.collapse {
+    /* background: linear-gradient(90deg, #007bff, #00c6ff); */
+}
+
+/* تخصيص مظهر زر التبديل في شريط التنقل */
+.navbar-toggler-icon {
+    background-color: #fff; /* خلفية الزر */
+    border-radius: 5px; /* تقويس الزر */
+}
+
+/* تخصيص الروابط في Navbar */
+.navbar-brand h1 {
+    font-size: 1.2rem; /* حجم النص */
+    margin: 0;
+}
+
+.nav-link {
+    font-size: 1rem; /* حجم النص */
+}
+
+.nav-link:hover {
+    color: gold; /* لون عند التمرير */
+}
+
+/* تخصيص الأزرار في Navbar */
+.navbar-nav .nav-item .btn {
+    font-weight: bold; /* وزن الخط */
+    transition: all 0.3s ease; /* تأثير سلس */
+}
+
+/* تخصيص زر "تسجيل دخول" */
+.navbar-nav .nav-item .btn-outline-light {
+    border-color: #fff;
+    color: #fff;
+}
+
+.navbar-nav .nav-item .btn-outline-light:hover {
+    background-color: #fff;
+    color: #007bff; /* اللون الأزرق الفاتح */
+    border-color: #007bff;
+}
+
+/* تخصيص زر "تسجيل جديد" */
+.navbar-nav .nav-item .btn-warning {
+    color: #fff;
+}
+
+.navbar-nav .nav-item .btn-warning:hover {
+    background-color: #f5c000; /* لون مشرق */
+    color: #fff;
+}
+
+/* تأثير عند تمرير الفأرة على الأزرار */
+.navbar-nav .nav-item .btn:hover {
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* إضافة تأثير الظل */
+}
+
+/* تخصيص الرسالة الترحيبية */
+#welcome {
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+.welcome-content h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideUp 1.5s ease-out forwards;
+}
+
+.welcome-content p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.75); /* رمادي فاتح */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 1.5s ease-out forwards;
+    animation-delay: 0.5s; /* تأخير الرسالة */
+    color: #fff;
+    font-weight: bold;
+}
+
+.welcome-content .btn {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #2575fc;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.welcome-content .btn:hover {
+    background-color: #2575fc;
+    color: white;
+    transform: scale(1.1); /* تكبير الزر */
+}
+
+/* تخصيص الأيقونات في الرسالة الترحيبية */
+.welcome-content .icons i {
+    transition: transform 0.3s ease;
+}
+
+.welcome-content .icons i:hover {
+    transform: translateY(-10px); /* تحريك الأيقونات للأعلى */
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تخصيص مظهر قسم "كيف نعمل؟" */
+#how-it-works {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#how-it-works h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+.how-it-works-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.how-it-works-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.how-it-works-box i {
+    color: #2575fc;
+    transition: color 0.3s ease;
+}
+
+.how-it-works-box i:hover {
+    color: #B8860B; /* اللون الذهبي الغامق */
+}
+
+.how-it-works-box h4 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #2575fc; /* اللون الذهبي الغامق */
+    margin-bottom: 20px;
+}
+
+.how-it-works-box p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* تأثير التحويم */
+.hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+}
+
+.how-it-works-box:hover .hover-overlay {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    #how-it-works h2 {
+        font-size: 2rem;
+    }
+}
+
+/* تخصيص قسم إعلان الفائز */
+.winner-section {
+    background-color: #f4f4f9;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.winner-section .section-title {
+    font-size: 2.5rem;
+    color: #343a40;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+/* تخصيص بطاقة الفائز */
+.winner-card {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثير اللمعان على بطاقة الفائز */
+.winner-card.glow-effect {
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5), 0 5px 15px rgba(255, 140, 0, 0.3);
+    color: #fff;
+}
+
+/* تأثير التحويم فوق بطاقة الفائز */
+.winner-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* تخصيص أيقونة الفائز */
+.icon-container {
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.winner-name {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.reward-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.reward-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2ecc71;
+    margin-right: 10px;
+}
+
+.reward-description {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.phone-number {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.phone-number i {
+    margin-right: 8px;
+}
+
+/* تخصيص أزرار الفائز */
+.winner-section .btn {
+    background-color: gold;
+    color: #333;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.winner-section .btn:hover {
+    background-color: gold;
+}
+
+/* تأثير الأنيميشن لظهور البطاقات */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
