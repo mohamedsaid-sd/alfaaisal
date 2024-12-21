@@ -13,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($username === $correct_username && $password === $correct_password) {
         // تسجيل دخول ناجح - إعادة توجيه المستخدم إلى صفحة dashboard
         //header("Location: dashboard.php");
-        echo "<div class='alert alert-success'> تم الدخول جاري توجيهك ... </div>";
+        //echo "<div class='alert alert-success'> تم الدخول جاري توجيهك ... </div>";
         echo "<meta http-equiv='refresh' content='3;url=dashboard.php'>";
+         $sucess_message = "تم الدخول جاري توجيهك ...";
         //exit();
     } else {
         // رسالة خطأ
@@ -42,6 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- عرض رسالة الخطأ إذا كانت موجودة -->
         <?php if (isset($error_message)): ?>
             <p style="color:red; text-align:center;"><?php echo $error_message; ?></p>
+        <?php endif; ?>
+
+        <!-- عرض رسالة النجاح إذا كانت موجودة -->
+        <?php if (isset($sucess_message)): ?>
+            <p style="color:green; text-align:center;"><?php echo $sucess_message; ?></p>
         <?php endif; ?>
 
         <form action="" method="post" class="login-form">

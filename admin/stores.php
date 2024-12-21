@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحة المتاجر</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> -->
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -301,15 +301,26 @@ include '../config.php';
                     while($row = $result->fetch_assoc()) {
 
                         $store_id = $row['id'];
-                        $sql_barcodes = "SELECT * FROM `coupons` WHERE `store_id` = '$store_id'";
-                        $result_barcodes = mysqli_query($conn, $sql_barcodes);
+                        $coupon_count = "";
+                        $sql_coupon = "SELECT COUNT(store_id) as 'copcoupons' FROM `coupons` WHERE `store_id` = '$store_id'";
+                        $result_coupon = mysqli_query($conn, $sql_coupon);
+                        while ($coupons_count_row = mysqli_fetch_array($result_coupon)) {
+                            $coupon_count = $coupons_count_row['copcoupons'];
+                        }
 
-                        $sql_blockcoupon = "SELECT * FROM `coupons` WHERE `store_id` = '$store_id' and `is_blocked` = '1' ";
-                        $result_blockcoupon = mysqli_query($conn, $sql_blockcoupon);
+                        $block_coupon_count = "";
+                        $sql_block_coupon = "SELECT COUNT(store_id) as 'copcoupons' FROM `coupons` WHERE `store_id` = '$store_id' and `is_blocked` = '1'";
+                        $result_block_coupon = mysqli_query($conn, $sql_block_coupon);
+                        while ($coupons_count_row = mysqli_fetch_array($result_block_coupon)) {
+                            $block_coupon_count = $coupons_count_row['copcoupons'];
+                        }
+
+                        //$sql_blockcoupon = "SELECT id FROM `coupons` WHERE `store_id` = '$store_id' and `is_blocked` = '1' ";
+                        //$result_blockcoupon = mysqli_query($conn, $sql_blockcoupon);
 
                         // الحصول على عدد الباركودات
-                        $barcode_count = mysqli_num_rows($result_barcodes);
-                        $blockcoupon_count = mysqli_num_rows($result_blockcoupon);
+                        //$coupon_count = mysqli_num_rows($result_barcodes);
+                        //$blockcoupon_count = mysqli_num_rows($result_blockcoupon);
 
 
 
@@ -319,8 +330,8 @@ include '../config.php';
                                 <td>" . $row['country'] . "</td>
                                 <td>" . $row['region'] . "</td>
                                 <td>" . $row['phone'] . "</td>
-                                <td> ". $barcode_count ." </td>
-                                <td> ". $blockcoupon_count ." </td>
+                                <td> ". $coupon_count ." </td>
+                                <td> ". $block_coupon_count ." </td>
 
                                 <td class='action-buttons'>
                                     <button class='btn btn-sm btn-warning' onclick='editStore(" . $row['id'] . ", \"" . $row['name'] . "\", \"" . $row['name'] . "\", \"" . $row['country'] . "\", \"" . $row['region'] . "\", \"" . $row['phone'] . "\")'>تعديل</button>
@@ -340,10 +351,12 @@ include '../config.php';
     </div>
 
     <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../js/Jquery.js"></script>
+    <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script> 
+    <script type="text/javascript" src="../js/dataTables.bootstrap5.min.js"></script> 
+
+
 
     <script>
         // Initialize DataTable

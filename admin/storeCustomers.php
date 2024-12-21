@@ -162,7 +162,11 @@ if(isset($_POST['active'])){
                         $result_barcodes = mysqli_query($conn, $sql_barcodes);
 
                         // الحصول على عدد الباركودات
-                        $barcode_count = mysqli_num_rows($result_barcodes);
+                        if(mysqli_num_rows($result_barcodes) > 0)
+                        $barcode_count = @mysqli_num_rows($conn,$result_barcodes);
+                        else
+                        $barcode_count = 0;
+
 
                         // Store Status : 
                         $status = $row['status'];

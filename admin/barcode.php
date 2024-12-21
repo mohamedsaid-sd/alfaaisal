@@ -14,7 +14,7 @@ $id = $_GET['id'];
 // إضافة باركود جديد
 if(isset($_POST['createBarcode'])){
     $rnd          = rand(99, 9999);
-    $text = "https://alfaaisal.com/register.php?id=$rnd";
+    $text = "https://alfaaisal.com/register.php";
     $path   = 'QRimages/';
     $qrcode = $path.time().$rnd.".png"; 
     QRcode:: png($text , $qrcode , 'H' , 4 , 4 );
